@@ -42,10 +42,11 @@ pipeline {
         always {
             script {
                 echo "Cleaning up..."
-                bat 'taskkill /f /im python.exe 2>nul || echo "No Python processes running"'
-                bat 'docker stop test-app 2>nul || echo "No test container to stop"'
-                bat 'docker rm test-app 2>nul || echo "No test container to remove"'
-                bat 'docker system prune -f || echo "Docker cleanup completed"'
+                // Use returnStatus:true to prevent pipeline from aborting if process/container not found
+                bat(returnStatus: true, script: 'taskkill /f /im python.exe 2>nul || echo "No Python processes running"')
+                bat(returnStatus: true, script: 'docker stop test-app 2>nul || echo "No test container to stop"')
+                bat(returnStatus: true, script: 'docker rm test-app 2>nul || echo "No test container to remove"')
+                bat(returnStatus: true, script: 'docker system prune -f || echo "Docker cleanup completed"')
             }
             
             script {
