@@ -27,7 +27,7 @@ pipeline {
                     python -m pip install --upgrade pip setuptools wheel
                     python -m pip install numpy==1.26.4 pandas==2.2.2 Flask==2.3.3 joblib==1.3.2 requests==2.31.0
                     pip install scikit-learn==1.6.1 --only-binary=scikit-learn || echo "scikit-learn installation failed, will use Docker for ML"
-                    bat 'pip list | findstr -i "flask pandas numpy joblib" 2>nul || echo "Package list check completed"'
+                    pip list | findstr -i "flask pandas numpy joblib" 2>nul || echo "Package list check completed"
                     '''
                 }
             }
